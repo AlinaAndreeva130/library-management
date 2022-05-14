@@ -27,16 +27,31 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "author", nullable = false)
     private String author;
+
+    @Column(name = "genre", nullable = false)
     private String genre;
+
+    @Column(name = "publisher")
     private String publisher;
+
+    @Column(name = "year", nullable = false)
     private Integer year;
+
     @Column(name = "page_count")
     private Integer pageCount;
+
+    @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "age_restriction")
+
+    @Column(name = "age_restriction", nullable = false)
     private Integer ageRestriction;
 
     @Override
