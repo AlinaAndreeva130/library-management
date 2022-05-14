@@ -60,6 +60,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="phone" type="VARCHAR(50)"/>
+            <column name="birthday" type="DATE">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet id="3" author="alina">
