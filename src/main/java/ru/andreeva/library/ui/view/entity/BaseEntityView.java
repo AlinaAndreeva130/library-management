@@ -90,13 +90,13 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
 
     protected abstract void createColumns();
 
-    protected void init() {
+    protected void initAfterConstructionObject() {
 
     }
 
     @PostConstruct
     private void postConstruct() {
-        init();
+        initAfterConstructionObject();
     }
 
 }
