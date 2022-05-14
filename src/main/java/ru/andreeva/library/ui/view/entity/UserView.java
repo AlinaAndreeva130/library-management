@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import ru.andreeva.library.service.dao.User;
-import ru.andreeva.library.service.repository.UsersRepository;
+import ru.andreeva.library.service.repository.UserRepository;
 import ru.andreeva.library.service.specification.UserSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.UserEditor;
 import ru.andreeva.library.ui.view.MainLayout;
@@ -18,11 +18,11 @@ import ru.andreeva.library.ui.view.MainLayout;
 @JsModule("./view/entity/user-view.ts")
 @UIScope
 @SpringComponent
-public class UserView extends BaseEntityView<User, Integer, UsersRepository> {
+public class UserView extends BaseEntityView<User, Long, UserRepository> {
 
-    public UserView(UserSpecificationFactoryImpl specificationFactory, UsersRepository usersRepository,
+    public UserView(UserSpecificationFactoryImpl specificationFactory, UserRepository userRepository,
                     UserEditor editor) {
-        super(usersRepository, specificationFactory, editor);
+        super(userRepository, specificationFactory, editor);
     }
 
     @Override

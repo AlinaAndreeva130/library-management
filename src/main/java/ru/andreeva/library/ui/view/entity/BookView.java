@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import ru.andreeva.library.service.dao.Book;
-import ru.andreeva.library.service.repository.BooksRepository;
+import ru.andreeva.library.service.repository.BookRepository;
 import ru.andreeva.library.service.specification.BookSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.BookEditor;
 import ru.andreeva.library.ui.view.MainLayout;
@@ -19,11 +19,11 @@ import ru.andreeva.library.ui.view.MainLayout;
 @JsModule("./view/entity/book-view.ts")
 @UIScope
 @SpringComponent
-public class BookView extends BaseEntityView<Book, Integer, BooksRepository> {
+public class BookView extends BaseEntityView<Book, Long, BookRepository> {
 
-    public BookView(BookSpecificationFactoryImpl bookSpecificationFactory, BooksRepository booksRepository,
+    public BookView(BookSpecificationFactoryImpl bookSpecificationFactory, BookRepository bookRepository,
                     BookEditor editor) {
-        super(booksRepository, bookSpecificationFactory, editor);
+        super(bookRepository, bookSpecificationFactory, editor);
     }
 
     @Override

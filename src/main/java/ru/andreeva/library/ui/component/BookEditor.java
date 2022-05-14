@@ -5,15 +5,15 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import ru.andreeva.library.service.dao.Book;
-import ru.andreeva.library.service.repository.BooksRepository;
+import ru.andreeva.library.service.repository.BookRepository;
 
 @SpringComponent
 @UIScope
-public class BookEditor extends BaseEditor<Book, Integer, BooksRepository> {
+public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
     @Bind
     private TextField name;
 
-    public BookEditor(BooksRepository repository) {
+    public BookEditor(BookRepository repository) {
         super(repository, Book.class);
     }
 

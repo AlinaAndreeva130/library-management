@@ -5,11 +5,11 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import ru.andreeva.library.service.dao.User;
-import ru.andreeva.library.service.repository.UsersRepository;
+import ru.andreeva.library.service.repository.UserRepository;
 
 @SpringComponent
 @UIScope
-public class UserEditor extends BaseEditor<User, Integer, UsersRepository> {
+public class UserEditor extends BaseEditor<User, Long, UserRepository> {
     @Bind
     private TextField firstName;
     @Bind
@@ -19,7 +19,7 @@ public class UserEditor extends BaseEditor<User, Integer, UsersRepository> {
     @Bind
     private TextField address;
 
-    public UserEditor(UsersRepository repository) {
+    public UserEditor(UserRepository repository) {
         super(repository, User.class);
     }
 
