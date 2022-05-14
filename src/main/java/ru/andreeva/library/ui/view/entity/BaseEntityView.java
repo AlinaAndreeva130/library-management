@@ -36,10 +36,7 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
         this.repository = repository;
         this.editor = editor;
         filterService = new GridFilterService<>(this.repository, grid, specificationFactory);
-        grid.addSelectionListener(event -> {
-            editBtn.setEnabled(true);
-            deleteBtn.setEnabled(true);
-        });
+        grid.addSelectionListener(event -> refreshActionPanel());
         createActionPanel();
         createColumns();
     }
@@ -54,31 +51,41 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
         addBtn.addClickListener(this::addEntity);
 
         editBtn.setIcon(new Icon(VaadinIcon.EDIT));
-        editBtn.setEnabled(false);
         editBtn.addClickListener(this::editEntity);
 
         deleteBtn.setIcon(new Icon(VaadinIcon.TRASH));
-        deleteBtn.setEnabled(false);
         deleteBtn.addClickListener(this::deleteEntity);
+
+        refreshActionPanel();
+    }
+
+    private void refreshActionPanel() {
+        boolean isItemSelected = !grid.getSelectedItems().isEmpty();
+        editBtn.setEnabled(isItemSelected);
+        deleteBtn.setEnabled(isItemSelected);
     }
 
     private void addEntity(ClickEvent<Button> event) {
-        editor.addEntity(filterService::refresh);
+        editor.addEntity(this::actionAfterCloseEditor);
     }
 
     private void editEntity(ClickEvent<Button> event) {
         if (!grid.getSelectedItems().isEmpty()) {
             T selectedItem = grid.getSelectedItems().iterator().next();
-            editor.editEntity(selectedItem, filterService::refresh);
+            editor.editEntity(selectedItem, this::actionAfterCloseEditor);
         }
     }
 
     private void deleteEntity(ClickEvent<Button> event) {
         if (!grid.getSelectedItems().isEmpty()) {
             T deletingItem = grid.getSelectedItems().iterator().next();
-            repository.delete(deletingItem);
-            filterService.refresh();
+            editor.deleteEntity(deletingItem, this::actionAfterCloseEditor);
         }
+    }
+
+    private void actionAfterCloseEditor() {
+        filterService.refresh();
+        refreshActionPanel();
     }
 
     protected abstract void createColumns();

@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 
 public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> extends Dialog implements KeyNotifier {
+    private final R repository;
     private Binder<T> binder;
     private final Class<T> entityClass;
     private Runnable actionAfterEdit;
@@ -31,11 +32,12 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
 
     public BaseEditor(R repository, Class<T> entityClass) {
         this.entityClass = entityClass;
+        this.repository = repository;
         createClosePanel();
         VerticalLayout contentPanel = new VerticalLayout();
         add(contentPanel);
         createContentPanel(contentPanel);
-        createActionPanel(repository);
+        createActionPanel(this.repository);
     }
 
     public void addEntity(Runnable actionAfterAdd) {
@@ -50,6 +52,11 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
         actionBeforeOpen();
         binder.setBean(entity);
         open();
+    }
+
+    public void deleteEntity(T entity, Runnable actionAfterDelete) {
+        repository.delete(entity);
+        actionAfterDelete.run();
     }
 
     protected abstract void createContentPanel(VerticalLayout contentPanel);
