@@ -12,6 +12,8 @@ import ru.andreeva.library.service.specification.ReaderSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.ReaderEditor;
 import ru.andreeva.library.ui.view.MainLayout;
 
+import java.time.format.DateTimeFormatter;
+
 @Route(value = "reader", layout = MainLayout.class)
 @PageTitle("Читатели")
 @Tag("reader-view")
@@ -27,6 +29,12 @@ public class ReaderView extends BaseEntityView<Reader, Long, ReaderRepository> {
 
     @Override
     protected void createColumns() {
-//        grid.addColumn(User::getAddress).setHeader("Адрес").setKey("address");
+        grid.addColumn(Reader::getFirstName).setHeader("Фамилия").setKey("firstName");
+        grid.addColumn(Reader::getLastName).setHeader("Имя").setKey("lastName");
+        grid.addColumn(Reader::getPatronymic).setHeader("Отчество").setKey("patronymic");
+        grid.addColumn(Reader::getClazz).setHeader("Класс").setKey("clazz");
+        grid.addColumn(reader -> reader.getBirthday().format(DateTimeFormatter.ofPattern("d.MM.y")))
+                .setHeader("Дата рождения")
+                .setKey("birthday");
     }
 }

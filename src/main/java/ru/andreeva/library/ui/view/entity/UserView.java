@@ -12,6 +12,8 @@ import ru.andreeva.library.service.specification.UserSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.UserEditor;
 import ru.andreeva.library.ui.view.MainLayout;
 
+import java.time.format.DateTimeFormatter;
+
 @Route(value = "users", layout = MainLayout.class)
 @PageTitle("Администраторы")
 @Tag("user-view")
@@ -30,6 +32,8 @@ public class UserView extends BaseEntityView<User, Long, UserRepository> {
         grid.addColumn(User::getFirstName).setHeader("Фамилия").setKey("firstName");
         grid.addColumn(User::getLastName).setHeader("Имя").setKey("lastName");
         grid.addColumn(User::getPatronymic).setHeader("Отчество").setKey("patronymic");
-        grid.addColumn(User::getAddress).setHeader("Адрес").setKey("address");
+        grid.addColumn(user -> user.getBirthday().format(DateTimeFormatter.ofPattern("d.MM.y")))
+                .setHeader("Дата рождения")
+                .setKey("birthday");
     }
 }

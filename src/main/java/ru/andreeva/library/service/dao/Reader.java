@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reader")
@@ -30,11 +31,8 @@ public class Reader {
     private String patronymic;
 
     @Column(name = "class", nullable = false)
-    private Integer _class;
+    private Integer clazz;
 
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "phone", length = 50)
-    private String phone;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 }

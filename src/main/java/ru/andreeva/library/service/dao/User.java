@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -38,11 +39,8 @@ public class User {
     @Column(name = "patronymic", length = 50)
     private String patronymic;
 
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 
     @Override
     public boolean equals(Object o) {
