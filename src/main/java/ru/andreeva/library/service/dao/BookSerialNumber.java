@@ -2,13 +2,9 @@ package ru.andreeva.library.service.dao;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.andreeva.library.service.util.Status;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -24,11 +20,13 @@ public class BookSerialNumber {
     @Column(name = "serial_number", nullable = false)
     private String serialNumber;
 
-    @Column(name = "book_id", nullable = false)
-    private Long bookId;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 50)
-    private String status;
+    private Status status;
 
     @Column(name = "status_date", nullable = false)
     private LocalDate statusDate;

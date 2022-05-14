@@ -13,16 +13,16 @@ import ru.andreeva.library.ui.component.UserEditor;
 import ru.andreeva.library.ui.view.MainLayout;
 
 @Route(value = "users", layout = MainLayout.class)
-@PageTitle("Читатели")
+@PageTitle("Администраторы")
 @Tag("user-view")
 @JsModule("./view/entity/user-view.ts")
 @UIScope
 @SpringComponent
 public class UserView extends BaseEntityView<User, Long, UserRepository> {
 
-    public UserView(UserSpecificationFactoryImpl specificationFactory, UserRepository userRepository,
+    public UserView(UserSpecificationFactoryImpl specificationFactory, UserRepository repository,
                     UserEditor editor) {
-        super(userRepository, specificationFactory, editor);
+        super(repository, specificationFactory, editor);
     }
 
     @Override
