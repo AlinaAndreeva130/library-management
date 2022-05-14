@@ -13,6 +13,8 @@ public @interface Bind {
     String value() default "";
     Converter converter() default Converter.NONE;
 
+    String nullRepresentation() default "0";
+
     enum Converter {
         NONE,
         STRING_TO_INTEGER,

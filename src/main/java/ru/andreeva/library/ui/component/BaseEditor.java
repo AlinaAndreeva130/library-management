@@ -20,7 +20,6 @@ import org.springframework.data.util.Pair;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
-import java.util.HashMap;
 
 
 public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> extends Dialog implements KeyNotifier {
@@ -98,7 +97,8 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
                         }
 
                         if (annotation.converter() != Bind.Converter.NONE) {
-                            Pair<Converter, Object> converterNullRepresentation = getConverter(annotation.converter());
+                            Pair<Converter, Object> converterNullRepresentation =
+                                    getConverter(annotation.converter(), annotation.nullRepresentation());
                             binder.forField((HasValue<?, ?>) fieldInstance)
                                     .withConverter(converterNullRepresentation.getFirst())
                                     .withNullRepresentation(converterNullRepresentation.getSecond())
@@ -114,12 +114,11 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
                 });
     }
 
-    private Pair<Converter, Object> getConverter(Bind.Converter converter) {
-        HashMap<Converter, Object> map = new HashMap<>();
+    private Pair<Converter, Object> getConverter(Bind.Converter converter, String nullRepresentation) {
         if (converter == Bind.Converter.STRING_TO_DOUBLE) {
-            return Pair.of(new StringToDoubleConverter("Not a double"), .0);
+            return Pair.of(new StringToDoubleConverter("Not a double"), Double.parseDouble(nullRepresentation));
         } else if (converter == Bind.Converter.STRING_TO_INTEGER) {
-            return Pair.of(new StringToIntegerConverter("Not a number"), 0);
+            return Pair.of(new StringToIntegerConverter("Not a number"), Integer.parseInt(nullRepresentation));
         } else {
             throw new IllegalArgumentException("Unsupported converter type");
         }
