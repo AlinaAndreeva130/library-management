@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class GridFilterService<T, ID, I extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
-    private final I repository;
+public class GridFilterService<T, ID, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> {
+    private final R repository;
     private final Grid<T> grid;
     private final Map<String, Specification<T>> filterMap;
     private final SpecificationFactory<T> specificationFactory;
 
-    public GridFilterService(I repository, Grid<T> grid, SpecificationFactory<T> specificationFactory) {
+    public GridFilterService(R repository, Grid<T> grid, SpecificationFactory<T> specificationFactory) {
         this.repository = repository;
         this.grid = grid;
         this.specificationFactory = specificationFactory;
@@ -31,7 +31,7 @@ public class GridFilterService<T, ID, I extends JpaRepository<T, ID> & JpaSpecif
         fill();
     }
 
-    public GridFilterService(I repository, Grid<T> grid, SpecificationFactory<T> specificationFactory,
+    public GridFilterService(R repository, Grid<T> grid, SpecificationFactory<T> specificationFactory,
                              Map<String, String> filters) {
         this(repository, grid, specificationFactory);
         filters.forEach(this::addCustomFilter);
