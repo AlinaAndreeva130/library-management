@@ -18,10 +18,10 @@ import ru.andreeva.library.ui.view.MainLayout;
 @JsModule("./view/entity/user-view.ts")
 @UIScope
 @SpringComponent
-public class UserEntityView extends BaseEntityView<User, Integer, UsersRepository> {
+public class UserView extends BaseEntityView<User, Integer, UsersRepository> {
 
-    public UserEntityView(UserSpecificationFactoryImpl specificationFactory, UsersRepository usersRepository,
-                          UserEditor editor) {
+    public UserView(UserSpecificationFactoryImpl specificationFactory, UsersRepository usersRepository,
+                    UserEditor editor) {
         super(usersRepository, specificationFactory, editor);
     }
 

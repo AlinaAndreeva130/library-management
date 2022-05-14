@@ -19,10 +19,10 @@ import ru.andreeva.library.ui.view.MainLayout;
 @JsModule("./view/entity/book-view.ts")
 @UIScope
 @SpringComponent
-public class BookEntityView extends BaseEntityView<Book, Integer, BooksRepository> {
+public class BookView extends BaseEntityView<Book, Integer, BooksRepository> {
 
-    public BookEntityView(BookSpecificationFactoryImpl bookSpecificationFactory, BooksRepository booksRepository,
-                          BookEditor editor) {
+    public BookView(BookSpecificationFactoryImpl bookSpecificationFactory, BooksRepository booksRepository,
+                    BookEditor editor) {
         super(booksRepository, bookSpecificationFactory, editor);
     }
 

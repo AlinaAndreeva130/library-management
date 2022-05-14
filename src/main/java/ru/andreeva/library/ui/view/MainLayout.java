@@ -15,8 +15,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-import ru.andreeva.library.ui.view.entity.BookEntityView;
-import ru.andreeva.library.ui.view.entity.UserEntityView;
+import ru.andreeva.library.ui.view.entity.BookView;
+import ru.andreeva.library.ui.view.entity.UserView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,8 +106,8 @@ public class MainLayout extends AppLayout {
     private List<RouterLink> createLinks() {
         MenuItemInfo[] menuItems = new MenuItemInfo[]{
                 new MenuItemInfo("Главная", "la la-file", MainView.class),
-                new MenuItemInfo("Фонд библиотеки", "la la-file", BookEntityView.class),
-                new MenuItemInfo("Читатели", "la la-file", UserEntityView.class)};
+                new MenuItemInfo("Фонд библиотеки", "la la-file", BookView.class),
+                new MenuItemInfo("Читатели", "la la-file", UserView.class)};
         List<RouterLink> links = new ArrayList<>();
         for (MenuItemInfo menuItemInfo : menuItems) {
             links.add(createLink(menuItemInfo));

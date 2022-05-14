@@ -45,10 +45,8 @@
     "@vaadin/vaadin-upload": "4.4.2",
     "@webcomponents/webcomponentsjs": "^2.2.10",
     "construct-style-sheets-polyfill": "2.4.16",
-    "line-awesome": "1.3.0",
     "lit-element": "2.5.1",
-    "lit-html": "1.4.1",
-    "lumo-css-framework": "^4.0.10"
+    "lit-html": "1.4.1"
   },
   "devDependencies": {
     "chokidar": "^3.5.0",
@@ -142,6 +140,6 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "b3a7aec104eaba804cff6ee68cafa9a8caae2c9cd5d1b4021d918c35e1667a09"
+    "hash": "bde45549399a019f6011496129d95820380ead15bdb459c6e2828c8f99664430"
   }
 }
