@@ -1,6 +1,11 @@
 import 'construct-style-sheets-polyfill';
-import { DomModule } from "@polymer/polymer/lib/elements/dom-module";
-import { stylesFromTemplate } from "@polymer/polymer/lib/utils/style-gather";
+import {DomModule} from "@polymer/polymer/lib/elements/dom-module";
+import {stylesFromTemplate} from "@polymer/polymer/lib/utils/style-gather";
+import stylesCss from './styles.css';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/badge.js';
 
 const createLinkReferences = (css, target) => {
   // Unresolved urls are written as '@import url(text);' to the css
@@ -8,7 +13,7 @@ const createLinkReferences = (css, target) => {
   // [1] matches the media query
   // [2] matches the url
   const importMatcher = /(?:@media\s(.+?))?(?:\s{)?\@import\surl\((.+?)\);(?:})?/g;
-  
+
   var match;
   var styleCss = css;
   
@@ -65,11 +70,6 @@ const getStyleModule = (id) => {
       .join(" ");
   return cssText;
 };
-import stylesCss from './styles.css';
-import '@vaadin/vaadin-lumo-styles/typography.js';
-import '@vaadin/vaadin-lumo-styles/color.js';
-import '@vaadin/vaadin-lumo-styles/spacing.js';
-import '@vaadin/vaadin-lumo-styles/badge.js';
 
 window.Vaadin = window.Vaadin || {};
 window.Vaadin.Flow = window.Vaadin.Flow || {};
