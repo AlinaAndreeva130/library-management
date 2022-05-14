@@ -16,12 +16,12 @@ import ru.andreeva.library.ui.filter.GridFilterService;
 
 import javax.annotation.PostConstruct;
 
-public abstract class BaseEntityView<T, ID, I extends JpaSpecificationExecutor<T> & JpaRepository<T, ID>> extends LitTemplate {
+public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T> & JpaRepository<T, ID>> extends LitTemplate {
     @Id("grid")
     protected Grid<T> grid;
-    protected final I repository;
-    protected final GridFilterService<T, ID, I> filterService;
-    private final BaseEditor<T> editor;
+    protected final R repository;
+    protected final GridFilterService<T, ID, R> filterService;
+    private final BaseEditor<T, ID, R> editor;
 
     @Id("action-panel")
     protected HorizontalLayout actionPanel;
@@ -32,8 +32,8 @@ public abstract class BaseEntityView<T, ID, I extends JpaSpecificationExecutor<T
     @Id("delete-btn")
     protected Button deleteBtn;
 
-    public BaseEntityView(I booksRepository, SpecificationFactory<T> specificationFactory, BaseEditor<T> editor) {
-        this.repository = booksRepository;
+    public BaseEntityView(R repository, SpecificationFactory<T> specificationFactory, BaseEditor<T, ID, R> editor) {
+        this.repository = repository;
         this.editor = editor;
         filterService = new GridFilterService<>(this.repository, grid, specificationFactory);
         grid.addSelectionListener(event -> {
