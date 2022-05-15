@@ -6,14 +6,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import ru.andreeva.library.service.util.Genre;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -36,8 +38,9 @@ public class Book {
     @Column(name = "author", nullable = false)
     private String author;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "genre", nullable = false)
-    private String genre;
+    private Genre genre;
 
     @Column(name = "publisher")
     private String publisher;
@@ -47,9 +50,6 @@ public class Book {
 
     @Column(name = "page_count")
     private Integer pageCount;
-
-    @Column(name = "price")
-    private BigDecimal price;
 
     @Column(name = "age_restriction", nullable = false)
     private Integer ageRestriction;
