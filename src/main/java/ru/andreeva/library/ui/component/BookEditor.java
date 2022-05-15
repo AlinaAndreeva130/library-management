@@ -14,11 +14,11 @@ import ru.andreeva.library.service.dao.Book;
 import ru.andreeva.library.service.dao.BookSerialNumber;
 import ru.andreeva.library.service.repository.BookRepository;
 import ru.andreeva.library.service.repository.BookSerialNumberRepository;
-import ru.andreeva.library.service.util.EnumNullableValidator;
 import ru.andreeva.library.service.util.Genre;
-import ru.andreeva.library.service.util.IntegerValidator;
 import ru.andreeva.library.service.util.Status;
-import ru.andreeva.library.service.util.StringNullableValidator;
+import ru.andreeva.library.ui.util.EnumNullableValidator;
+import ru.andreeva.library.ui.util.IntegerValidator;
+import ru.andreeva.library.ui.util.StringNullableValidator;
 
 import java.time.LocalDate;
 import java.util.Arrays;
