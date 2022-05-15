@@ -93,7 +93,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_book_serial_number"/>
             </column>
             <column name="serial_number" type="VARCHAR(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
             <column name="book_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -169,5 +169,39 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="8" author="alina">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_issuance_of_book__book_serial_number"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="issuance_of_book" baseColumnNames="book_serial_number_id"
+                                 constraintName="fk_issuance_of_book__book_serial_number"
+                                 referencedTableName="book_serial_number"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="9" author="alina">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_issuance_of_book_log__book_serial_number"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="issuance_of_book_log" baseColumnNames="book_serial_number_id"
+                                 constraintName="fk_issuance_of_book_log__book_serial_number"
+                                 referencedTableName="book_serial_number"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="10" author="alina">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_book_serial_number__book"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="book_serial_number" baseColumnNames="book_id"
+                                 constraintName="fk_book_serial_number__book"
+                                 referencedTableName="book"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 
 </databaseChangeLog>
