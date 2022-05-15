@@ -6,16 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import ru.andreeva.library.service.util.Genre;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -53,6 +48,11 @@ public class Book {
 
     @Column(name = "age_restriction", nullable = false)
     private Integer ageRestriction;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
+    @ReadOnlyProperty
+    private List<BookSerialNumber> bookSerialNumbers;
 
     @Override
     public boolean equals(Object o) {

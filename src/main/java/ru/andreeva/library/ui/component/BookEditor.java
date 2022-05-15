@@ -97,6 +97,14 @@ public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
         contentPanel.setWidth("350px");
     }
 
+    @Override
+    public void editEntity(Book entity, Runnable actionAfterEdit) {
+        super.editEntity(entity, actionAfterEdit);
+        serialNumbers.setValue(entity.getBookSerialNumbers()
+                .stream()
+                .map(BookSerialNumber::getSerialNumber)
+                .collect(Collectors.joining(", ")));
+    }
 
     @Override
     protected Book createNewEntity() {
@@ -127,7 +135,7 @@ public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
     private void saveNewSerialNumbers(Book book, List<BookSerialNumber> bookSerialNumbers, List<String> serialNumbersList) {
         List<String> notSavedNumbers = serialNumbersList.stream()
                 .filter(number -> bookSerialNumbers.stream()
-                        .noneMatch(item -> item.getSerialNumber().equals(number)))
+                        .noneMatch(item -> item.getSerialNumber().equals(number.trim())))
                 .collect(Collectors.toList());
         if (!notSavedNumbers.isEmpty()) {
             notSavedNumbers.stream()
