@@ -11,6 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Bind {
     String value() default "";
+
     Converter converter() default Converter.NONE;
 
     String nullRepresentation() default "0";
@@ -18,6 +19,7 @@ public @interface Bind {
     enum Converter {
         NONE,
         STRING_TO_INTEGER,
-        STRING_TO_DOUBLE
+        STRING_TO_DOUBLE,
+        STRING_TO_BIG_DECIMAL
     }
 }
