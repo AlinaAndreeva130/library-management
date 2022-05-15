@@ -1,6 +1,9 @@
 package ru.andreeva.library.service.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.andreeva.library.service.util.Status;
 
@@ -11,13 +14,16 @@ import java.time.LocalDate;
 @Table(name = "book_serial_number")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookSerialNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "serial_number", nullable = false)
+    @Column(name = "serial_number", nullable = false, unique = true)
     private String serialNumber;
 
     @ManyToOne
