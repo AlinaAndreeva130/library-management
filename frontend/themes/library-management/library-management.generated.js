@@ -14,7 +14,7 @@ const createLinkReferences = (css, target) => {
   // [2] matches the url
   const importMatcher = /(?:@media\s(.+?))?(?:\s{)?\@import\surl\((.+?)\);(?:})?/g;
 
-  var match;
+    var match;
   var styleCss = css;
   
   // For each external url import add a link reference
