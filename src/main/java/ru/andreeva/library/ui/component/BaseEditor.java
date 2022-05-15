@@ -17,6 +17,7 @@ import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.data.converter.StringToBigDecimalConverter;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -32,6 +33,7 @@ import java.util.Map;
 
 public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpecificationExecutor<T>> extends Dialog implements KeyNotifier {
     private final R repository;
+    @Getter
     private Binder<T> binder;
     private final Class<T> entityClass;
     private Runnable actionAfterEdit;
@@ -74,6 +76,33 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
 
     protected <TYPE> void addValidator(String fieldName, Validator<TYPE> validator) {
         validatorMap.put(fieldName, validator);
+    }
+
+    protected void actionBeforeOpen() {
+        // maybe implementing
+    }
+
+    protected void actionAfterSave(T entity) {
+
+    }
+
+    protected void saveEntity(JpaRepository repository) {
+        List<ValidationResult> validationErrors = binder.validate().getValidationErrors();
+        if (!validationErrors.isEmpty()) {
+            Notification.show("Некорректно заполнены поля", 3000, Notification.Position.TOP_STRETCH);
+            return;
+        }
+
+        close();
+        ;
+        actionAfterSave((T) repository.save(binder.getBean()));
+
+        if (actionAfterAdd != null) {
+            actionAfterAdd.run();
+        }
+        if (actionAfterEdit != null) {
+            actionAfterEdit.run();
+        }
     }
 
     private void createActionPanel(JpaRepository repository) {
@@ -149,28 +178,6 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
             return Pair.of(new StringToBigDecimalConverter("Not a big decimal"), BigDecimal.valueOf(Double.parseDouble(nullRepresentation)));
         } else {
             throw new IllegalArgumentException("Unsupported converter type");
-        }
-    }
-
-    protected void actionBeforeOpen() {
-        // maybe implementing
-    }
-
-    private void saveEntity(JpaRepository repository) {
-        List<ValidationResult> validationErrors = binder.validate().getValidationErrors();
-        if (!validationErrors.isEmpty()) {
-            Notification.show("Некорректно заполнены поля", 3000, Notification.Position.TOP_STRETCH);
-            return;
-        }
-
-        close();
-        repository.save(binder.getBean());
-
-        if (actionAfterAdd != null) {
-            actionAfterAdd.run();
-        }
-        if (actionAfterEdit != null) {
-            actionAfterEdit.run();
         }
     }
 }
