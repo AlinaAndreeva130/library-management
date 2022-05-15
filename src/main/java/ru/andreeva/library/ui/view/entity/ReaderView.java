@@ -33,7 +33,7 @@ public class ReaderView extends BaseEntityView<Reader, Long, ReaderRepository> {
         grid.addColumn(Reader::getLastName).setHeader("Имя").setKey("lastName");
         grid.addColumn(Reader::getPatronymic).setHeader("Отчество").setKey("patronymic");
         grid.addColumn(Reader::getClazz).setHeader("Класс").setKey("clazz");
-        grid.addColumn(reader -> reader.getBirthday().format(DateTimeFormatter.ofPattern("d.MM.y")))
+        grid.addColumn(reader -> reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")))
                 .setHeader("Дата рождения")
                 .setKey("birthday");
     }

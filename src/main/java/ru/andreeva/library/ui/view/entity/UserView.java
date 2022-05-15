@@ -32,7 +32,7 @@ public class UserView extends BaseEntityView<User, Long, UserRepository> {
         grid.addColumn(User::getFirstName).setHeader("Фамилия").setKey("firstName");
         grid.addColumn(User::getLastName).setHeader("Имя").setKey("lastName");
         grid.addColumn(User::getPatronymic).setHeader("Отчество").setKey("patronymic");
-        grid.addColumn(user -> user.getBirthday().format(DateTimeFormatter.ofPattern("d.MM.y")))
+        grid.addColumn(user -> user.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")))
                 .setHeader("Дата рождения")
                 .setKey("birthday");
     }
