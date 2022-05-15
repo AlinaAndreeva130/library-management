@@ -1,7 +1,9 @@
 package ru.andreeva.library.ui.view.entity;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
@@ -19,10 +21,19 @@ import ru.andreeva.library.ui.view.MainLayout;
 @UIScope
 @SpringComponent
 public class BookView extends BaseEntityView<Book, Long, BookRepository> {
+    @Id("issue")
+    private Button issueBtn;
+    @Id("return")
+    private Button returnBtn;
 
     public BookView(BookSpecificationFactoryImpl bookSpecificationFactory, BookRepository bookRepository,
                     BookEditor editor) {
         super(bookRepository, bookSpecificationFactory, editor);
+    }
+
+    @Override
+    protected void initAfterConstructionObject() {
+
     }
 
     @Override
