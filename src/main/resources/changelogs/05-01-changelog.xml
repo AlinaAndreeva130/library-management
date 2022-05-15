@@ -30,7 +30,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="page_count" type="INT"/>
-            <column name="price" type="DECIMAL"/>
             <column name="age_restriction" type="INT">
                 <constraints nullable="false"/>
             </column>
