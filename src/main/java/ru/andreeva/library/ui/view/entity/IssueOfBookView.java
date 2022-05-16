@@ -42,6 +42,7 @@ public class IssueOfBookView extends BaseEntityView<IssuanceOfBook, IssuanceOfBo
             IssuanceOfBook issuanceOfBook = grid.getSelectedItems().iterator().next();
             bookService.returnBook(issuanceOfBook.getId().getBook(), issuanceOfBook.getId().getBookSerialNumber(),
                     issuanceOfBook.getId().getReader());
+            filterService.refresh();
         });
         returnBtn.setEnabled(false);
 
