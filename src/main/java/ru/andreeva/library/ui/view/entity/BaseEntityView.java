@@ -39,6 +39,7 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
         this.editor = editor;
         filterService = new GridFilterService<>(this.repository, grid, specificationFactory);
         grid.addSelectionListener(event -> refreshActionPanel());
+        grid.setHeightByRows(true);
         createActionPanel();
         createColumns();
     }
