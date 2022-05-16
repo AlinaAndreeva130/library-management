@@ -22,7 +22,7 @@
             <column name="author" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="genre" type="VARCHAR(255)">
+            <column name="genre_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="publisher" type="VARCHAR(255)"/>
@@ -202,6 +202,20 @@
                                  referencedTableName="book"
                                  referencedColumnNames="id"/>
     </changeSet>
-
+    <changeSet id="11" author="alina">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="genre"/>
+            </not>
+        </preConditions>
+        <createTable tableName="genre">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" unique="false" primaryKey="true" primaryKeyName="pk_genre"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
