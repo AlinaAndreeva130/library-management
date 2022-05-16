@@ -28,6 +28,6 @@ public class GenreView extends BaseEntityView<Genre, Long, GenreRepository> {
 
     @Override
     protected void createColumns() {
-        grid.addColumn(Genre::getName).setHeader("Название жанра").setKey("name");
+        grid.addColumn(Genre::getName).setSortable(true).setHeader("Название жанра").setKey("name");
     }
 }
