@@ -15,7 +15,7 @@ import ru.andreeva.library.ui.component.BookEditor;
 import ru.andreeva.library.ui.component.IssuanceWindow;
 import ru.andreeva.library.ui.view.MainLayout;
 
-@Route(value = "books", layout = MainLayout.class)
+@Route(value = "", layout = MainLayout.class)
 @PageTitle("Фонд библиотеки")
 @Tag("book-view")
 @JsModule("./view/entity/book-view.ts")
