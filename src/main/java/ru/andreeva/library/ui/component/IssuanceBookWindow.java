@@ -10,19 +10,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.andreeva.library.service.dao.Book;
-import ru.andreeva.library.service.dao.BookSerialNumber;
-import ru.andreeva.library.service.dao.IssuanceOfBook;
-import ru.andreeva.library.service.dao.IssuanceOfBookId;
-import ru.andreeva.library.service.dao.IssuanceOfBookLog;
-import ru.andreeva.library.service.dao.Reader;
-import ru.andreeva.library.service.repository.BookRepository;
-import ru.andreeva.library.service.repository.BookSerialNumberRepository;
-import ru.andreeva.library.service.repository.IssuanceOfBookLogRepository;
-import ru.andreeva.library.service.repository.IssuanceOfBookRepository;
-import ru.andreeva.library.service.repository.ReaderRepository;
-import ru.andreeva.library.service.util.Operation;
-import ru.andreeva.library.service.util.Status;
+import ru.andreeva.library.servicelayer.dao.Book;
+import ru.andreeva.library.servicelayer.dao.BookSerialNumber;
+import ru.andreeva.library.servicelayer.dao.Reader;
+import ru.andreeva.library.servicelayer.repository.ReaderRepository;
+import ru.andreeva.library.servicelayer.service.BookService;
+import ru.andreeva.library.servicelayer.util.Status;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -31,29 +24,17 @@ import java.time.format.DateTimeFormatter;
 @SpringComponent
 @UIScope
 public class IssuanceBookWindow extends Dialog {
-    private final BookRepository bookRepository;
-    private final BookSerialNumberRepository bookSerialNumberRepository;
-    private final IssuanceOfBookRepository issuanceOfBookRepository;
-    private final IssuanceOfBookLogRepository issuanceOfBookLogRepository;
     private final ReaderRepository readerRepository;
+    private final BookService bookService;
     private final ComboBox<BookSerialNumber> serialNumber;
     private final ComboBox<Reader> reader;
-    private final Button issue;
-    private final Button cancel;
 
 
     private Book currentBook;
 
-    public IssuanceBookWindow(BookRepository bookRepository,
-                              BookSerialNumberRepository bookSerialNumberRepository,
-                              IssuanceOfBookRepository issuanceOfBookRepository,
-                              IssuanceOfBookLogRepository issuanceOfBookLogRepository,
-                              ReaderRepository readerRepository) {
-        this.bookRepository = bookRepository;
-        this.bookSerialNumberRepository = bookSerialNumberRepository;
-        this.issuanceOfBookRepository = issuanceOfBookRepository;
-        this.issuanceOfBookLogRepository = issuanceOfBookLogRepository;
+    public IssuanceBookWindow(ReaderRepository readerRepository, BookService bookService) {
         this.readerRepository = readerRepository;
+        this.bookService = bookService;
 
         serialNumber = new ComboBox<>("Серийный номер (свободный)");
         serialNumber.setWidthFull();
@@ -70,10 +51,10 @@ public class IssuanceBookWindow extends Dialog {
                         item.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")));
         reader.addValueChangeListener(event -> validateReader(event.getValue()));
 
-        issue = new Button("Выдать");
+        Button issue = new Button("Выдать");
         issue.addClickListener(this::doIssue);
 
-        cancel = new Button("Отмена");
+        Button cancel = new Button("Отмена");
         cancel.addClickListener(event -> close());
 
         HorizontalLayout horizontalLayout = new HorizontalLayout(issue, cancel);
@@ -133,27 +114,6 @@ public class IssuanceBookWindow extends Dialog {
         }
 
         close();
-
-        issuanceOfBookRepository.save(IssuanceOfBook.builder()
-                .id(IssuanceOfBookId.builder()
-                        .book(currentBook)
-                        .bookSerialNumber(bookSerialNumber)
-                        .reader(reader)
-                        .build())
-                .operation(Operation.ISSUED)
-                .date(LocalDate.now())
-                .build());
-
-        bookSerialNumber.setStatus(Status.BUSY);
-        bookSerialNumber.setStatusDate(LocalDate.now());
-        bookSerialNumberRepository.save(bookSerialNumber);
-
-        issuanceOfBookLogRepository.save(IssuanceOfBookLog.builder()
-                .book(currentBook)
-                .bookSerialNumber(bookSerialNumber)
-                .reader(reader)
-                .operation(Operation.ISSUED)
-                .date(LocalDate.now())
-                .build());
+        bookService.issueBook(currentBook, bookSerialNumber, reader);
     }
 }

@@ -18,6 +18,7 @@ export class IssueOfBookView extends LitElement {
                     <vaadin-button id="edit-btn"></vaadin-button>
                     <vaadin-button id="delete-btn"></vaadin-button>
                     <vaadin-button id="update-btn"></vaadin-button>
+                    <vaadin-button id="return">Вернуть</vaadin-button>
                 </vaadin-horizontal-layout>
                 <vaadin-grid id="grid"/>
             </vaadin-vertical-layout>

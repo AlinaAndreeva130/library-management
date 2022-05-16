@@ -10,42 +10,33 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.andreeva.library.service.dao.Book;
-import ru.andreeva.library.service.dao.BookSerialNumber;
-import ru.andreeva.library.service.dao.IssuanceOfBookLog;
-import ru.andreeva.library.service.dao.Reader;
-import ru.andreeva.library.service.repository.BookSerialNumberRepository;
-import ru.andreeva.library.service.repository.IssuanceOfBookLogRepository;
-import ru.andreeva.library.service.repository.IssuanceOfBookRepository;
-import ru.andreeva.library.service.repository.ReaderRepository;
-import ru.andreeva.library.service.util.Operation;
-import ru.andreeva.library.service.util.Status;
+import ru.andreeva.library.servicelayer.dao.Book;
+import ru.andreeva.library.servicelayer.dao.BookSerialNumber;
+import ru.andreeva.library.servicelayer.dao.Reader;
+import ru.andreeva.library.servicelayer.repository.IssuanceOfBookRepository;
+import ru.andreeva.library.servicelayer.repository.ReaderRepository;
+import ru.andreeva.library.servicelayer.service.BookService;
+import ru.andreeva.library.servicelayer.util.Status;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 @SpringComponent
 @UIScope
 public class ReturnBookWindow extends Dialog {
-    private final BookSerialNumberRepository bookSerialNumberRepository;
-    private final IssuanceOfBookRepository issuanceOfBookRepository;
-    private final IssuanceOfBookLogRepository issuanceOfBookLogRepository;
     private final ReaderRepository readerRepository;
+    private final BookService bookService;
     private final ComboBox<BookSerialNumber> serialNumber;
     private final ComboBox<Reader> reader;
 
 
     private Book currentBook;
 
-    public ReturnBookWindow(BookSerialNumberRepository bookSerialNumberRepository,
-                            IssuanceOfBookRepository issuanceOfBookRepository,
-                            IssuanceOfBookLogRepository issuanceOfBookLogRepository,
-                            ReaderRepository readerRepository) {
-        this.bookSerialNumberRepository = bookSerialNumberRepository;
-        this.issuanceOfBookRepository = issuanceOfBookRepository;
-        this.issuanceOfBookLogRepository = issuanceOfBookLogRepository;
+    public ReturnBookWindow(IssuanceOfBookRepository issuanceOfBookRepository,
+                            ReaderRepository readerRepository,
+                            BookService bookService) {
         this.readerRepository = readerRepository;
+        this.bookService = bookService;
 
         serialNumber = new ComboBox<>("Серийный номер (свободный)");
         serialNumber.setWidthFull();
@@ -126,20 +117,6 @@ public class ReturnBookWindow extends Dialog {
         }
 
         close();
-
-        issuanceOfBookRepository.delete(
-                issuanceOfBookRepository.findByBookAndReaderAndSerialNumber(currentBook, reader, bookSerialNumber));
-
-        bookSerialNumber.setStatus(Status.FREE);
-        bookSerialNumber.setStatusDate(LocalDate.now());
-        bookSerialNumberRepository.save(bookSerialNumber);
-
-        issuanceOfBookLogRepository.save(IssuanceOfBookLog.builder()
-                .book(currentBook)
-                .bookSerialNumber(bookSerialNumber)
-                .reader(reader)
-                .operation(Operation.REFUND)
-                .date(LocalDate.now())
-                .build());
+        bookService.returnBook(currentBook, bookSerialNumber, reader);
     }
 }

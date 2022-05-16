@@ -6,9 +6,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.andreeva.library.service.dao.User;
-import ru.andreeva.library.service.repository.UserRepository;
-import ru.andreeva.library.service.specification.UserSpecificationFactoryImpl;
+import ru.andreeva.library.servicelayer.dao.User;
+import ru.andreeva.library.servicelayer.repository.UserRepository;
+import ru.andreeva.library.servicelayer.specification.UserSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.UserEditor;
 import ru.andreeva.library.ui.view.MainLayout;
 

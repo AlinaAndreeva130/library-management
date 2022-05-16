@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.template.Id;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import ru.andreeva.library.service.specification.SpecificationFactory;
+import ru.andreeva.library.servicelayer.specification.SpecificationFactory;
 import ru.andreeva.library.ui.component.BaseEditor;
 import ru.andreeva.library.ui.filter.GridFilterService;
 

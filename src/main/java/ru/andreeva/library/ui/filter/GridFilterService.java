@@ -9,8 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import ru.andreeva.library.service.specification.SearchCriteria;
-import ru.andreeva.library.service.specification.SpecificationFactory;
+import ru.andreeva.library.servicelayer.specification.SearchCriteria;
+import ru.andreeva.library.servicelayer.specification.SpecificationFactory;
 
 import java.util.HashMap;
 import java.util.List;

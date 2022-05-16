@@ -6,10 +6,10 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.andreeva.library.service.dao.IssuanceOfBookLog;
-import ru.andreeva.library.service.dao.Reader;
-import ru.andreeva.library.service.repository.IssuanceOfBookLogRepository;
-import ru.andreeva.library.service.specification.IssuanceOfBookLogSpecificationFactoryImpl;
+import ru.andreeva.library.servicelayer.dao.IssuanceOfBookLog;
+import ru.andreeva.library.servicelayer.dao.Reader;
+import ru.andreeva.library.servicelayer.repository.IssuanceOfBookLogRepository;
+import ru.andreeva.library.servicelayer.specification.IssuanceOfBookLogSpecificationFactoryImpl;
 import ru.andreeva.library.ui.view.MainLayout;
 
 import java.time.format.DateTimeFormatter;

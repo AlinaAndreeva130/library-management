@@ -8,33 +8,33 @@ import '@vaadin/vaadin-lumo-styles/spacing.js';
 import '@vaadin/vaadin-lumo-styles/badge.js';
 
 const createLinkReferences = (css, target) => {
-    // Unresolved urls are written as '@import url(text);' to the css
-    // [0] is the full match
-    // [1] matches the media query
-    // [2] matches the url
-    const importMatcher = /(?:@media\s(.+?))?(?:\s{)?\@import\surl\((.+?)\);(?:})?/g;
+  // Unresolved urls are written as '@import url(text);' to the css
+  // [0] is the full match
+  // [1] matches the media query
+  // [2] matches the url
+  const importMatcher = /(?:@media\s(.+?))?(?:\s{)?\@import\surl\((.+?)\);(?:})?/g;
 
-    var match;
-    var styleCss = css;
+  var match;
+  var styleCss = css;
 
-    // For each external url import add a link reference
-    while ((match = importMatcher.exec(css)) !== null) {
-        styleCss = styleCss.replace(match[0], "");
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = match[2];
-        if (match[1]) {
-            link.media = match[1];
-        }
-        // For target document append to head else append to target
-        if (target === document) {
-            document.head.appendChild(link);
-        } else {
-            target.appendChild(link);
-        }
+  // For each external url import add a link reference
+  while ((match = importMatcher.exec(css)) !== null) {
+    styleCss = styleCss.replace(match[0], "");
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = match[2];
+    if (match[1]) {
+      link.media = match[1];
     }
-    ;
-    return styleCss;
+    // For target document append to head else append to target
+    if (target === document) {
+      document.head.appendChild(link);
+    } else {
+      target.appendChild(link);
+    }
+  }
+  ;
+  return styleCss;
 };
 
 // target: Document | ShadowRoot

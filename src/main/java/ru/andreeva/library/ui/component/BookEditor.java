@@ -10,13 +10,13 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
-import ru.andreeva.library.service.dao.Book;
-import ru.andreeva.library.service.dao.BookSerialNumber;
-import ru.andreeva.library.service.dao.Genre;
-import ru.andreeva.library.service.repository.BookRepository;
-import ru.andreeva.library.service.repository.BookSerialNumberRepository;
-import ru.andreeva.library.service.repository.GenreRepository;
-import ru.andreeva.library.service.util.Status;
+import ru.andreeva.library.servicelayer.dao.Book;
+import ru.andreeva.library.servicelayer.dao.BookSerialNumber;
+import ru.andreeva.library.servicelayer.dao.Genre;
+import ru.andreeva.library.servicelayer.repository.BookRepository;
+import ru.andreeva.library.servicelayer.repository.BookSerialNumberRepository;
+import ru.andreeva.library.servicelayer.repository.GenreRepository;
+import ru.andreeva.library.servicelayer.util.Status;
 import ru.andreeva.library.ui.util.EnumNullableValidator;
 import ru.andreeva.library.ui.util.IntegerValidator;
 import ru.andreeva.library.ui.util.StringNullableValidator;
@@ -99,7 +99,7 @@ public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
         serialNumbers.setWidthFull();
 
         contentPanel.add(name, author, genre, publisher, year, pageCount, ageRestriction, serialNumbers);
-        contentPanel.setWidth("350px");
+        contentPanel.setWidth("500px");
     }
 
     @Override

@@ -6,9 +6,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
-import ru.andreeva.library.service.dao.Genre;
-import ru.andreeva.library.service.repository.GenreRepository;
-import ru.andreeva.library.service.specification.GenreSpecificationFactoryImpl;
+import ru.andreeva.library.servicelayer.dao.Genre;
+import ru.andreeva.library.servicelayer.repository.GenreRepository;
+import ru.andreeva.library.servicelayer.specification.GenreSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.GenreEditor;
 import ru.andreeva.library.ui.view.MainLayout;
 
