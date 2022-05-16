@@ -1,6 +1,9 @@
 package ru.andreeva.library.service.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -12,6 +15,9 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssuanceOfBookId implements Serializable {
     private static final long serialVersionUID = 6509031923347605885L;
     @Column(name = "book_id", nullable = false)

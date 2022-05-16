@@ -1,6 +1,9 @@
 package ru.andreeva.library.service.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.andreeva.library.service.util.Operation;
 
@@ -16,6 +19,9 @@ import java.time.LocalDate;
 @Table(name = "issuance_of_book")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssuanceOfBook {
     @EmbeddedId
     private IssuanceOfBookId id;

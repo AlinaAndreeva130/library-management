@@ -1,6 +1,9 @@
 package ru.andreeva.library.service.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -15,6 +18,9 @@ import java.time.LocalDate;
 @Table(name = "issuance_of_book_log")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssuanceOfBookLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
