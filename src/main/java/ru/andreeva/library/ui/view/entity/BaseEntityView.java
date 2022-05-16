@@ -59,10 +59,11 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
         refreshActionPanel();
     }
 
-    private void refreshActionPanel() {
+    protected boolean refreshActionPanel() {
         boolean isItemSelected = !grid.getSelectedItems().isEmpty();
         editBtn.setEnabled(isItemSelected);
         deleteBtn.setEnabled(isItemSelected);
+        return isItemSelected;
     }
 
     private void addEntity(ClickEvent<Button> event) {

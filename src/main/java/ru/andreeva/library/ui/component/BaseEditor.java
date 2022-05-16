@@ -107,6 +107,7 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
         Button saveBtn = new Button("Сохранить", event -> saveEntity());
         Button cancelBtn = new Button("Отмена", event -> close());
         HorizontalLayout actionPanel = new HorizontalLayout(saveBtn, cancelBtn);
+        actionPanel.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         add(actionPanel);
     }
 
