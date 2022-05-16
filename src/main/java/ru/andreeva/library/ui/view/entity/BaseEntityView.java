@@ -31,6 +31,8 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
     protected Button editBtn;
     @Id("delete-btn")
     protected Button deleteBtn;
+    @Id("update-btn")
+    protected Button updateBtn;
 
     public BaseEntityView(R repository, SpecificationFactory<T> specificationFactory, BaseEditor<T, ID, R> editor) {
         this.repository = repository;
@@ -61,6 +63,9 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
 
         deleteBtn.setIcon(new Icon(VaadinIcon.TRASH));
         deleteBtn.addClickListener(this::deleteEntity);
+
+        updateBtn.setIcon(new Icon(VaadinIcon.REFRESH));
+        updateBtn.addClickListener(event -> filterService.refresh());
 
         refreshActionPanel();
     }

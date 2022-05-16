@@ -37,8 +37,11 @@ public class IssueOfBookLogView extends BaseEntityView<IssuanceOfBookLog, Long, 
             Reader reader = item.getReader();
             return reader.getFirstName() + " " + reader.getLastName() + " " + reader.getPatronymic() + " " +
                     reader.getClazz() + " класс " + reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y"));
-        }).setHeader("Читатель").setKey("reader");
-        grid.addColumn(item -> item.getOperation().getName()).setHeader("Операция").setKey("operation");
+        }).setHeader("Читатель").setAutoWidth(true).setKey("reader");
+        grid.addColumn(item -> item.getOperation().getName())
+                .setHeader("Операция")
+                .setAutoWidth(true)
+                .setKey("operation");
         grid.addColumn(item -> item.getDate().format(DateTimeFormatter.ofPattern("dd.MM.y")))
                 .setHeader("Дата операции")
                 .setKey("operationDate");

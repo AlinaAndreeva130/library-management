@@ -33,7 +33,7 @@ public class Book {
     private String author;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genre_id", insertable = false)
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @Column(name = "publisher")
