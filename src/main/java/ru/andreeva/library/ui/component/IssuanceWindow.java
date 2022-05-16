@@ -97,7 +97,8 @@ public class IssuanceWindow extends Dialog {
             isValid = false;
         } else {
             if (Period.between(value.getBirthday(), LocalDate.now()).getYears() < currentBook.getAgeRestriction()) {
-                errorMessage = "данная книга разрешена с " + currentBook.getAgeRestriction() + " лет";
+                Notification.show("данная книга разрешена с " + currentBook.getAgeRestriction() + " лет", 3000,
+                        Notification.Position.BOTTOM_START);
                 isValid = false;
             }
         }
@@ -108,13 +109,17 @@ public class IssuanceWindow extends Dialog {
 
     public void issueBook(Book book) {
         currentBook = book;
+        serialNumber.clear();
         serialNumber.setItems(book.getBookSerialNumbers());
+        reader.clear();
         reader.setItems(readerRepository.findAll());
         open();
     }
 
     private void doIssue(ClickEvent<Button> event) {
-        if (validateSerialNumber(serialNumber.getValue()) || validateReader(reader.getValue())) {
+        boolean isValidSerialNumber = validateSerialNumber(serialNumber.getValue());
+        boolean isValidReader = validateReader(reader.getValue());
+        if (!isValidSerialNumber || !isValidReader) {
             Notification.show("Некорректно заполнены поля", 3000, Notification.Position.TOP_STRETCH);
             return;
         }

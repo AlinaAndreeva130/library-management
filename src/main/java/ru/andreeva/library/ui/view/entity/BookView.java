@@ -68,5 +68,6 @@ public class BookView extends BaseEntityView<Book, Long, BookRepository> {
         grid.addColumn(book -> book.getGenre().getName()).setHeader("Жанр").setKey("genre");
         grid.addColumn(Book::getYear).setHeader("Год издания").setKey("year");
         grid.addColumn(Book::getPageCount).setHeader("Количество страниц").setKey("pageCount");
+        grid.addColumn(Book::getAgeRestriction).setHeader("Возрастное ограничение (с лет)").setKey("ageRestriction");
     }
 }
