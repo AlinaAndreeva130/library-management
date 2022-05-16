@@ -12,6 +12,7 @@ import ru.andreeva.library.service.dao.Book;
 import ru.andreeva.library.service.repository.BookRepository;
 import ru.andreeva.library.service.specification.BookSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.BookEditor;
+import ru.andreeva.library.ui.component.IssuanceWindow;
 import ru.andreeva.library.ui.view.MainLayout;
 
 @Route(value = "books", layout = MainLayout.class)
@@ -21,14 +22,38 @@ import ru.andreeva.library.ui.view.MainLayout;
 @UIScope
 @SpringComponent
 public class BookView extends BaseEntityView<Book, Long, BookRepository> {
+    private final IssuanceWindow issuanceWindow;
     @Id("issue")
     private Button issueBtn;
     @Id("return")
     private Button returnBtn;
 
-    public BookView(BookSpecificationFactoryImpl bookSpecificationFactory, BookRepository bookRepository,
-                    BookEditor editor) {
+    public BookView(BookSpecificationFactoryImpl bookSpecificationFactory,
+                    BookRepository bookRepository,
+                    BookEditor editor,
+                    IssuanceWindow issuanceWindow) {
         super(bookRepository, bookSpecificationFactory, editor);
+        this.issuanceWindow = issuanceWindow;
+    }
+
+    @Override
+    protected void configureActionPanel() {
+        issueBtn.addClickListener(event -> issuanceWindow.issueBook(grid.getSelectedItems().iterator().next()));
+        issueBtn.setEnabled(false);
+
+        returnBtn.addClickListener(event -> {
+        });
+        returnBtn.setEnabled(false);
+
+        super.configureActionPanel();
+    }
+
+    @Override
+    protected boolean refreshActionPanel() {
+        boolean isSelected = super.refreshActionPanel();
+        issueBtn.setEnabled(isSelected);
+        returnBtn.setEnabled(isSelected);
+        return isSelected;
     }
 
     @Override

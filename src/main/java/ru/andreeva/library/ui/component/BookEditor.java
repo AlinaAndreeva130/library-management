@@ -132,7 +132,9 @@ public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
         }
     }
 
-    private void saveNewSerialNumbers(Book book, List<BookSerialNumber> bookSerialNumbers, List<String> serialNumbersList) {
+    private void saveNewSerialNumbers(Book book,
+                                      List<BookSerialNumber> bookSerialNumbers,
+                                      List<String> serialNumbersList) {
         List<String> notSavedNumbers = serialNumbersList.stream()
                 .filter(number -> bookSerialNumbers.stream()
                         .noneMatch(item -> item.getSerialNumber().equals(number.trim())))
