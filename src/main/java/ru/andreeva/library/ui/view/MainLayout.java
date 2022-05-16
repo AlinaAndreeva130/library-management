@@ -16,6 +16,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import ru.andreeva.library.ui.view.entity.BookView;
+import ru.andreeva.library.ui.view.entity.GenreView;
 import ru.andreeva.library.ui.view.entity.IssueOfBookLogView;
 import ru.andreeva.library.ui.view.entity.IssueOfBookView;
 import ru.andreeva.library.ui.view.entity.ReaderView;
@@ -112,11 +113,11 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Выданные книги", "la la-file", IssueOfBookView.class),
                 new MenuItemInfo("Журнал выдачи и возврата книг", "la la-file", IssueOfBookLogView.class),
                 new MenuItemInfo("Читатели", "la la-file", ReaderView.class),
-                new MenuItemInfo("Администраторы", "la la-file", UserView.class)};
+                new MenuItemInfo("Администраторы", "la la-file", UserView.class),
+                new MenuItemInfo("Жанры", "la la-file", GenreView.class)};
         List<RouterLink> links = new ArrayList<>();
         for (MenuItemInfo menuItemInfo : menuItems) {
             links.add(createLink(menuItemInfo));
-
         }
         return links;
     }

@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.data.annotation.ReadOnlyProperty;
-import ru.andreeva.library.service.util.Genre;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,8 +32,8 @@ public class Book {
     @Column(name = "author", nullable = false)
     private String author;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "genre", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id", insertable = false)
     private Genre genre;
 
     @Column(name = "publisher")

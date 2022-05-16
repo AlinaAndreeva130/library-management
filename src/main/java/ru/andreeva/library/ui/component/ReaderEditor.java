@@ -38,20 +38,20 @@ public class ReaderEditor extends BaseEditor<Reader, Long, ReaderRepository> {
         firstName = new TextField("Фамилия");
         firstName.setRequired(true);
         firstName.setAutofocus(true);
-        firstName.setValueChangeMode(ValueChangeMode.LAZY);
+        firstName.setValueChangeMode(ValueChangeMode.EAGER);
         addValidator("firstName", new StringNullableValidator());
 
         lastName = new TextField("Имя");
         lastName.setRequired(true);
-        lastName.setValueChangeMode(ValueChangeMode.LAZY);
+        lastName.setValueChangeMode(ValueChangeMode.EAGER);
         addValidator("lastName", new StringNullableValidator());
 
         patronymic = new TextField("Отчество");
-        patronymic.setValueChangeMode(ValueChangeMode.LAZY);
+        patronymic.setValueChangeMode(ValueChangeMode.EAGER);
 
         clazz = new TextField("Класс");
         clazz.setRequired(true);
-        clazz.setValueChangeMode(ValueChangeMode.LAZY);
+        clazz.setValueChangeMode(ValueChangeMode.EAGER);
         addValidator("clazz", new IntegerValidator(1, 11, "возможно выбрать с 1-го по 11-й класс"));
 
         birthday = new DatePicker("День рождения");

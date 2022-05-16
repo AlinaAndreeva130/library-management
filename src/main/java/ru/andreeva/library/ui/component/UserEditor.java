@@ -35,16 +35,16 @@ public class UserEditor extends BaseEditor<User, Long, UserRepository> {
         firstName = new TextField("Фамилия");
         firstName.setRequired(true);
         firstName.setAutofocus(true);
-        firstName.setValueChangeMode(ValueChangeMode.LAZY);
+        firstName.setValueChangeMode(ValueChangeMode.EAGER);
         addValidator("firstName", new StringNullableValidator());
 
         lastName = new TextField("Имя");
         lastName.setRequired(true);
-        lastName.setValueChangeMode(ValueChangeMode.LAZY);
+        lastName.setValueChangeMode(ValueChangeMode.EAGER);
         addValidator("lastName", new StringNullableValidator());
 
         patronymic = new TextField("Отчество");
-        patronymic.setValueChangeMode(ValueChangeMode.LAZY);
+        patronymic.setValueChangeMode(ValueChangeMode.EAGER);
 
         birthday = new DatePicker("День рождения");
         birthday.setRequired(true);
