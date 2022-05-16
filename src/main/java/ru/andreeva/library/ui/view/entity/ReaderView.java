@@ -29,12 +29,12 @@ public class ReaderView extends BaseEntityView<Reader, Long, ReaderRepository> {
 
     @Override
     protected void createColumns() {
-        grid.addColumn(Reader::getFirstName).setHeader("Фамилия").setKey("firstName");
-        grid.addColumn(Reader::getLastName).setHeader("Имя").setKey("lastName");
-        grid.addColumn(Reader::getPatronymic).setHeader("Отчество").setKey("patronymic");
-        grid.addColumn(Reader::getClazz).setHeader("Класс").setKey("clazz");
+        grid.addColumn(Reader::getFirstName).setHeader("Фамилия").setSortable(true).setKey("firstName");
+        grid.addColumn(Reader::getLastName).setHeader("Имя").setSortable(true).setKey("lastName");
+        grid.addColumn(Reader::getPatronymic).setHeader("Отчество").setSortable(true).setKey("patronymic");
+        grid.addColumn(Reader::getClazz).setHeader("Класс").setSortable(true).setKey("clazz");
         grid.addColumn(reader -> reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")))
-                .setHeader("Дата рождения")
+                .setHeader("Дата рождения").setSortable(true)
                 .setKey("birthday");
     }
 }

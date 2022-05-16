@@ -30,7 +30,10 @@ public class IssueOfBookView extends BaseEntityView<IssuanceOfBook, IssuanceOfBo
 
     @Override
     protected void createColumns() {
-        grid.addColumn(item -> item.getId().getBook().getName()).setHeader("Название книги").setKey("bookName");
+        grid.addColumn(item -> item.getId().getBook().getName())
+                .setHeader("Название книги")
+                .setSortable(true)
+                .setKey("bookName");
         grid.addColumn(item -> item.getId().getBookSerialNumber().getSerialNumber())
                 .setHeader("Серийный номер книги")
                 .setKey("serialNumber");
@@ -38,13 +41,9 @@ public class IssueOfBookView extends BaseEntityView<IssuanceOfBook, IssuanceOfBo
             Reader reader = item.getId().getReader();
             return reader.getFirstName() + " " + reader.getLastName() + " " + reader.getPatronymic() + " " +
                     reader.getClazz() + " класс " + reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y"));
-        }).setHeader("Читатель").setAutoWidth(true).setKey("reader");
-        grid.addColumn(item -> item.getOperation().getName())
-                .setHeader("Операция")
-                .setAutoWidth(true)
-                .setKey("operation");
+        }).setHeader("Читатель").setSortable(true).setAutoWidth(true).setKey("reader");
         grid.addColumn(item -> item.getDate().format(DateTimeFormatter.ofPattern("dd.MM.y")))
-                .setHeader("Дата операции")
+                .setHeader("Дата операции").setSortable(true)
                 .setKey("operationDate");
     }
 }

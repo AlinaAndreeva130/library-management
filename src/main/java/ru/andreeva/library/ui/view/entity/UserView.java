@@ -29,11 +29,11 @@ public class UserView extends BaseEntityView<User, Long, UserRepository> {
 
     @Override
     protected void createColumns() {
-        grid.addColumn(User::getFirstName).setHeader("Фамилия").setKey("firstName");
-        grid.addColumn(User::getLastName).setHeader("Имя").setKey("lastName");
-        grid.addColumn(User::getPatronymic).setHeader("Отчество").setKey("patronymic");
+        grid.addColumn(User::getFirstName).setHeader("Фамилия").setSortable(true).setKey("firstName");
+        grid.addColumn(User::getLastName).setHeader("Имя").setSortable(true).setKey("lastName");
+        grid.addColumn(User::getPatronymic).setHeader("Отчество").setSortable(true).setKey("patronymic");
         grid.addColumn(user -> user.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")))
-                .setHeader("Дата рождения")
+                .setHeader("Дата рождения").setSortable(true)
                 .setKey("birthday");
     }
 }
