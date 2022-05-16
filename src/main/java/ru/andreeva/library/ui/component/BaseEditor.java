@@ -52,6 +52,7 @@ public abstract class BaseEditor<T, ID, R extends JpaRepository<T, ID> & JpaSpec
 
     public void addEntity(Runnable actionAfterAdd) {
         this.actionAfterAdd = actionAfterAdd;
+        binder.removeBean();
         binder.setBean(createNewEntity());
         actionBeforeOpen();
         open();

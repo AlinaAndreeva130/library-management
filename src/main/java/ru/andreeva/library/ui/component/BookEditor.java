@@ -112,6 +112,12 @@ public class BookEditor extends BaseEditor<Book, Long, BookRepository> {
     }
 
     @Override
+    protected void actionBeforeOpen() {
+        super.actionBeforeOpen();
+        serialNumbers.clear();
+    }
+
+    @Override
     protected void actionAfterSave(Book book) {
         List<BookSerialNumber> bookSerialNumbers = bookSerialNumberRepository.findByBook(book);
         if (serialNumbers.getValue() == null) {

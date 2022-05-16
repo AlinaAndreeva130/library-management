@@ -5,13 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.andreeva.library.service.util.Operation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -27,17 +23,21 @@ public class IssuanceOfBookLog {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "book_id", nullable = false)
-    private Long bookId;
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
-    @Column(name = "reader_id", nullable = false)
-    private Long readerId;
+    @ManyToOne
+    @JoinColumn(name = "reader_id", nullable = false)
+    private Reader reader;
 
-    @Column(name = "book_serial_number_id", nullable = false)
-    private Integer bookSerialNumberId;
+    @ManyToOne
+    @JoinColumn(name = "book_serial_number_id", nullable = false)
+    private BookSerialNumber bookSerialNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "operation", nullable = false, length = 100)
-    private String operation;
+    private Operation operation;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;

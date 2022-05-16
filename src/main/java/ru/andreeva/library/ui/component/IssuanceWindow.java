@@ -12,12 +12,17 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import ru.andreeva.library.service.dao.Book;
 import ru.andreeva.library.service.dao.BookSerialNumber;
+import ru.andreeva.library.service.dao.IssuanceOfBook;
+import ru.andreeva.library.service.dao.IssuanceOfBookId;
+import ru.andreeva.library.service.dao.IssuanceOfBookLog;
 import ru.andreeva.library.service.dao.Reader;
 import ru.andreeva.library.service.repository.BookRepository;
 import ru.andreeva.library.service.repository.BookSerialNumberRepository;
 import ru.andreeva.library.service.repository.IssuanceOfBookLogRepository;
 import ru.andreeva.library.service.repository.IssuanceOfBookRepository;
 import ru.andreeva.library.service.repository.ReaderRepository;
+import ru.andreeva.library.service.util.Operation;
+import ru.andreeva.library.service.util.Status;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -42,7 +47,8 @@ public class IssuanceWindow extends Dialog {
     public IssuanceWindow(BookRepository bookRepository,
                           BookSerialNumberRepository bookSerialNumberRepository,
                           IssuanceOfBookRepository issuanceOfBookRepository,
-                          IssuanceOfBookLogRepository issuanceOfBookLogRepository, ReaderRepository readerRepository) {
+                          IssuanceOfBookLogRepository issuanceOfBookLogRepository,
+                          ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
         this.bookSerialNumberRepository = bookSerialNumberRepository;
         this.issuanceOfBookRepository = issuanceOfBookRepository;
@@ -110,15 +116,17 @@ public class IssuanceWindow extends Dialog {
     public void issueBook(Book book) {
         currentBook = book;
         serialNumber.clear();
-        serialNumber.setItems(book.getBookSerialNumbers());
+        serialNumber.setItems(book.getBookSerialNumbers().stream().filter(item -> item.getStatus() == Status.FREE));
         reader.clear();
         reader.setItems(readerRepository.findAll());
         open();
     }
 
     private void doIssue(ClickEvent<Button> event) {
-        boolean isValidSerialNumber = validateSerialNumber(serialNumber.getValue());
-        boolean isValidReader = validateReader(reader.getValue());
+        BookSerialNumber bookSerialNumber = serialNumber.getValue();
+        Reader reader = this.reader.getValue();
+        boolean isValidSerialNumber = validateSerialNumber(bookSerialNumber);
+        boolean isValidReader = validateReader(reader);
         if (!isValidSerialNumber || !isValidReader) {
             Notification.show("Некорректно заполнены поля", 3000, Notification.Position.TOP_STRETCH);
             return;
@@ -126,6 +134,25 @@ public class IssuanceWindow extends Dialog {
 
         close();
 
+        issuanceOfBookRepository.save(IssuanceOfBook.builder()
+                .id(IssuanceOfBookId.builder()
+                        .book(currentBook)
+                        .bookSerialNumber(bookSerialNumber)
+                        .reader(reader)
+                        .build())
+                .operation(Operation.ISSUED)
+                .date(LocalDate.now())
+                .build());
 
+        bookSerialNumber.setStatus(Status.BUSY);
+        bookSerialNumberRepository.save(bookSerialNumber);
+
+        issuanceOfBookLogRepository.save(IssuanceOfBookLog.builder()
+                .book(currentBook)
+                .bookSerialNumber(bookSerialNumber)
+                .reader(reader)
+                .operation(Operation.ISSUED)
+                .date(LocalDate.now())
+                .build());
     }
 }

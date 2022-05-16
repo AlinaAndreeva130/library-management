@@ -46,6 +46,12 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
     }
 
     protected void configureActionPanel() {
+        if (editor == null) {
+            addBtn.setVisible(false);
+            editBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+        }
+
         actionPanel.setPadding(true);
         addBtn.setIcon(new Icon(VaadinIcon.PLUS));
         addBtn.addClickListener(this::addEntity);
