@@ -4,6 +4,7 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,6 +19,8 @@ import ru.andreeva.library.service.repository.IssuanceOfBookLogRepository;
 import ru.andreeva.library.service.repository.IssuanceOfBookRepository;
 import ru.andreeva.library.service.repository.ReaderRepository;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 @SpringComponent
@@ -50,13 +53,7 @@ public class IssuanceWindow extends Dialog {
         serialNumber.setWidthFull();
         serialNumber.setRequired(true);
         serialNumber.setItemLabelGenerator(BookSerialNumber::getSerialNumber);
-        serialNumber.addValueChangeListener(event -> {
-            if (serialNumber.getValue() == null) {
-                serialNumber.setErrorMessage("обязательно к заполнению");
-            } else {
-                serialNumber.setErrorMessage("");
-            }
-        });
+        serialNumber.addValueChangeListener(event -> validateSerialNumber(event.getValue()));
 
         reader = new ComboBox<>("Читатель");
         reader.setWidthFull();
@@ -65,6 +62,7 @@ public class IssuanceWindow extends Dialog {
                 item -> item.getFirstName() + " " + item.getLastName() + " " + item.getPatronymic() + " " +
                         item.getClazz() + " класс " +
                         item.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y")));
+        reader.addValueChangeListener(event -> validateReader(event.getValue()));
 
         issue = new Button("Выдать");
         issue.addClickListener(this::doIssue);
@@ -80,6 +78,34 @@ public class IssuanceWindow extends Dialog {
         setWidth("600px");
     }
 
+    private boolean validateSerialNumber(BookSerialNumber value) {
+        if (value == null) {
+            serialNumber.setErrorMessage("обязательно к заполнению");
+            return false;
+        } else {
+            serialNumber.setErrorMessage("");
+            return true;
+        }
+    }
+
+    private boolean validateReader(Reader value) {
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if (value == null) {
+            errorMessage = "обязательно к заполнению";
+            isValid = false;
+        } else {
+            if (Period.between(value.getBirthday(), LocalDate.now()).getYears() < currentBook.getAgeRestriction()) {
+                errorMessage = "данная книга разрешена с " + currentBook.getAgeRestriction() + " лет";
+                isValid = false;
+            }
+        }
+
+        reader.setErrorMessage(errorMessage);
+        return isValid;
+    }
+
     public void issueBook(Book book) {
         currentBook = book;
         serialNumber.setItems(book.getBookSerialNumbers());
@@ -88,6 +114,13 @@ public class IssuanceWindow extends Dialog {
     }
 
     private void doIssue(ClickEvent<Button> event) {
+        if (validateSerialNumber(serialNumber.getValue()) || validateReader(reader.getValue())) {
+            Notification.show("Некорректно заполнены поля", 3000, Notification.Position.TOP_STRETCH);
+            return;
+        }
+
         close();
+
+
     }
 }
