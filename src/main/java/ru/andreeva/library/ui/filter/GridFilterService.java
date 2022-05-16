@@ -46,13 +46,14 @@ public class GridFilterService<T, ID, R extends JpaRepository<T, ID> & JpaSpecif
         filterMap.put(filterKey, specification);
     }
 
-    public void addGridTextFilter(Grid.Column<T> column, HeaderRow filterRow) {
+    public void addGridTextFilter(Grid.Column<T> column, HeaderRow filterRow, String header) {
         TextField filter = new TextField();
         filter.setValueChangeMode(ValueChangeMode.LAZY);
         filter.setValueChangeTimeout(150);
         filter.addValueChangeListener(e -> filter(column.getKey(), e.getValue().trim()));
         // TODO: добавить перед заголовком колонки
-        // column.setHeader(filter);
+        filter.setPlaceholder(header);
+        filterRow.getCell(column).setComponent(filter);
     }
 
     public void refresh() {

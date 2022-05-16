@@ -33,17 +33,22 @@ public class IssueOfBookView extends BaseEntityView<IssuanceOfBook, IssuanceOfBo
         grid.addColumn(item -> item.getId().getBook().getName())
                 .setHeader("Название книги")
                 .setSortable(true)
+                .setResizable(true)
+                .setAutoWidth(true)
                 .setKey("bookName");
         grid.addColumn(item -> item.getId().getBookSerialNumber().getSerialNumber())
                 .setHeader("Серийный номер книги")
+                .setAutoWidth(true)
+                .setResizable(true)
                 .setKey("serialNumber");
         grid.addColumn(item -> {
             Reader reader = item.getId().getReader();
             return reader.getFirstName() + " " + reader.getLastName() + " " + reader.getPatronymic() + " " +
                     reader.getClazz() + " класс " + reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y"));
-        }).setHeader("Читатель").setSortable(true).setAutoWidth(true).setKey("reader");
+        }).setHeader("Читатель").setSortable(true).setResizable(true).setAutoWidth(true).setKey("reader");
         grid.addColumn(item -> item.getDate().format(DateTimeFormatter.ofPattern("dd.MM.y")))
-                .setHeader("Дата операции").setSortable(true)
+                .setHeader("Дата операции")
+                .setSortable(true)
                 .setKey("operationDate");
     }
 }

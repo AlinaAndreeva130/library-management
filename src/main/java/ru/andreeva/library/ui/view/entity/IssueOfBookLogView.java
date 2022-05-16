@@ -32,6 +32,8 @@ public class IssueOfBookLogView extends BaseEntityView<IssuanceOfBookLog, Long, 
         grid.addColumn(item -> item.getBook().getName())
                 .setHeader("Название книги")
                 .setSortable(true)
+                .setResizable(true)
+                .setAutoWidth(true)
                 .setKey("bookName");
         grid.addColumn(item -> item.getBookSerialNumber().getSerialNumber())
                 .setHeader("Серийный номер книги")
@@ -42,11 +44,13 @@ public class IssueOfBookLogView extends BaseEntityView<IssuanceOfBookLog, Long, 
                     reader.getClazz() + " класс " + reader.getBirthday().format(DateTimeFormatter.ofPattern("dd.MM.y"));
         }).setHeader("Читатель").setSortable(true).setAutoWidth(true).setKey("reader");
         grid.addColumn(item -> item.getOperation().getName())
-                .setHeader("Операция").setSortable(true)
+                .setHeader("Операция")
+                .setSortable(true)
                 .setAutoWidth(true)
                 .setKey("operation");
         grid.addColumn(item -> item.getDate().format(DateTimeFormatter.ofPattern("dd.MM.y")))
-                .setHeader("Дата операции").setSortable(true)
+                .setHeader("Дата операции")
+                .setSortable(true)
                 .setKey("operationDate");
     }
 }

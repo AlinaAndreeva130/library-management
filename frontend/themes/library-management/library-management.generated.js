@@ -14,21 +14,21 @@ const createLinkReferences = (css, target) => {
   // [2] matches the url
   const importMatcher = /(?:@media\s(.+?))?(?:\s{)?\@import\surl\((.+?)\);(?:})?/g;
 
-  var match;
+    var match;
   var styleCss = css;
 
-  // For each external url import add a link reference
-  while ((match = importMatcher.exec(css)) !== null) {
-    styleCss = styleCss.replace(match[0], "");
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = match[2];
-    if (match[1]) {
-      link.media = match[1];
-    }
-    // For target document append to head else append to target
-    if (target === document) {
-      document.head.appendChild(link);
+    // For each external url import add a link reference
+    while ((match = importMatcher.exec(css)) !== null) {
+        styleCss = styleCss.replace(match[0], "");
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = match[2];
+        if (match[1]) {
+            link.media = match[1];
+        }
+        // For target document append to head else append to target
+        if (target === document) {
+            document.head.appendChild(link);
     } else {
       target.appendChild(link);
     }

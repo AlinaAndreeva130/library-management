@@ -3,6 +3,7 @@ package ru.andreeva.library.ui.view.entity;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.template.Id;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -66,8 +67,16 @@ public class BookView extends BaseEntityView<Book, Long, BookRepository> {
 
     @Override
     protected void createColumns() {
-        grid.addColumn(Book::getName).setHeader("Название").setSortable(true).setKey("name");
-        grid.addColumn(Book::getAuthor).setHeader("Автор").setSortable(true).setKey("author");
+        HeaderRow headerRow = grid.appendHeaderRow();
+        filterService.addGridTextFilter(grid.addColumn(Book::getName)
+                .setHeader("Название")
+                .setSortable(true)
+                .setResizable(true)
+                .setAutoWidth(true)
+                .setKey("name"), headerRow, "Название");
+        filterService.addGridTextFilter(
+                grid.addColumn(Book::getAuthor).setHeader("Автор").setSortable(true).setKey("author"), headerRow,
+                "Автор");
         grid.addColumn(book -> book.getGenre().getName())
                 .setHeader("Жанр")
                 .setSortable(true)
@@ -75,9 +84,10 @@ public class BookView extends BaseEntityView<Book, Long, BookRepository> {
                 .setKey("genre");
         grid.addColumn(Book::getYear).setHeader("Год издания").setAutoWidth(true).setKey("year");
         grid.addColumn(Book::getPageCount).setHeader("Количество страниц").setAutoWidth(true).setKey("pageCount");
-        grid.addColumn(Book::getAgeRestriction)
+        filterService.addGridTextFilter(grid.addColumn(Book::getAgeRestriction)
                 .setHeader("Возрастное ограничение (с лет)")
                 .setSortable(true)
-                .setKey("ageRestriction");
+                .setResizable(true)
+                .setKey("ageRestriction"), headerRow, "Возрастное ограничение (с лет)");
     }
 }
