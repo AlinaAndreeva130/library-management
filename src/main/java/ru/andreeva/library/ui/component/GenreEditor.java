@@ -25,6 +25,7 @@ public class GenreEditor extends BaseEditor<Genre, Long, GenreRepository> {
         name.setRequired(true);
         name.setValueChangeMode(ValueChangeMode.EAGER);
         name.setAutofocus(true);
+        name.setWidth("400px");
         addValidator("name", new StringNullableValidator());
         contentPanel.add(name);
     }
