@@ -12,7 +12,8 @@ import ru.andreeva.library.service.dao.Book;
 import ru.andreeva.library.service.repository.BookRepository;
 import ru.andreeva.library.service.specification.BookSpecificationFactoryImpl;
 import ru.andreeva.library.ui.component.BookEditor;
-import ru.andreeva.library.ui.component.IssuanceWindow;
+import ru.andreeva.library.ui.component.IssuanceBookWindow;
+import ru.andreeva.library.ui.component.ReturnBookWindow;
 import ru.andreeva.library.ui.view.MainLayout;
 
 @Route(value = "", layout = MainLayout.class)
@@ -22,7 +23,8 @@ import ru.andreeva.library.ui.view.MainLayout;
 @UIScope
 @SpringComponent
 public class BookView extends BaseEntityView<Book, Long, BookRepository> {
-    private final IssuanceWindow issuanceWindow;
+    private final IssuanceBookWindow issuanceBookWindow;
+    private final ReturnBookWindow returnBookWindow;
     @Id("issue")
     private Button issueBtn;
     @Id("return")
@@ -31,18 +33,19 @@ public class BookView extends BaseEntityView<Book, Long, BookRepository> {
     public BookView(BookSpecificationFactoryImpl bookSpecificationFactory,
                     BookRepository bookRepository,
                     BookEditor editor,
-                    IssuanceWindow issuanceWindow) {
+                    IssuanceBookWindow issuanceBookWindow,
+                    ReturnBookWindow returnBookWindow) {
         super(bookRepository, bookSpecificationFactory, editor);
-        this.issuanceWindow = issuanceWindow;
+        this.issuanceBookWindow = issuanceBookWindow;
+        this.returnBookWindow = returnBookWindow;
     }
 
     @Override
     protected void configureActionPanel() {
-        issueBtn.addClickListener(event -> issuanceWindow.issueBook(grid.getSelectedItems().iterator().next()));
+        issueBtn.addClickListener(event -> issuanceBookWindow.issueBook(grid.getSelectedItems().iterator().next()));
         issueBtn.setEnabled(false);
 
-        returnBtn.addClickListener(event -> {
-        });
+        returnBtn.addClickListener(event -> returnBookWindow.returnBook(grid.getSelectedItems().iterator().next()));
         returnBtn.setEnabled(false);
 
         super.configureActionPanel();

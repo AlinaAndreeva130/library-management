@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 @SpringComponent
 @UIScope
-public class IssuanceWindow extends Dialog {
+public class IssuanceBookWindow extends Dialog {
     private final BookRepository bookRepository;
     private final BookSerialNumberRepository bookSerialNumberRepository;
     private final IssuanceOfBookRepository issuanceOfBookRepository;
@@ -44,11 +44,11 @@ public class IssuanceWindow extends Dialog {
 
     private Book currentBook;
 
-    public IssuanceWindow(BookRepository bookRepository,
-                          BookSerialNumberRepository bookSerialNumberRepository,
-                          IssuanceOfBookRepository issuanceOfBookRepository,
-                          IssuanceOfBookLogRepository issuanceOfBookLogRepository,
-                          ReaderRepository readerRepository) {
+    public IssuanceBookWindow(BookRepository bookRepository,
+                              BookSerialNumberRepository bookSerialNumberRepository,
+                              IssuanceOfBookRepository issuanceOfBookRepository,
+                              IssuanceOfBookLogRepository issuanceOfBookLogRepository,
+                              ReaderRepository readerRepository) {
         this.bookRepository = bookRepository;
         this.bookSerialNumberRepository = bookSerialNumberRepository;
         this.issuanceOfBookRepository = issuanceOfBookRepository;
@@ -145,6 +145,7 @@ public class IssuanceWindow extends Dialog {
                 .build());
 
         bookSerialNumber.setStatus(Status.BUSY);
+        bookSerialNumber.setStatusDate(LocalDate.now());
         bookSerialNumberRepository.save(bookSerialNumber);
 
         issuanceOfBookLogRepository.save(IssuanceOfBookLog.builder()

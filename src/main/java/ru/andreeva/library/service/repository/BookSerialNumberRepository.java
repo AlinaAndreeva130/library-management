@@ -9,6 +9,6 @@ import ru.andreeva.library.service.dao.BookSerialNumber;
 import java.util.List;
 
 public interface BookSerialNumberRepository extends JpaRepository<BookSerialNumber, Long>, JpaSpecificationExecutor<BookSerialNumber> {
-    @Query("select b from BookSerialNumber b where b.book = ?1")
+    @Query("SELECT b FROM BookSerialNumber b WHERE b.book = ?1")
     List<BookSerialNumber> findByBook(Book book);
 }
