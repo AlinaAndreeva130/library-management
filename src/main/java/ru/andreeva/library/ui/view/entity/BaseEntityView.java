@@ -15,7 +15,6 @@ import ru.andreeva.library.ui.component.BaseEditor;
 import ru.andreeva.library.ui.filter.GridFilterService;
 
 import javax.annotation.PostConstruct;
-import java.util.Set;
 
 public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T> & JpaRepository<T, ID>> extends LitTemplate {
     @Id("grid")
@@ -40,13 +39,6 @@ public abstract class BaseEntityView<T, ID, R extends JpaSpecificationExecutor<T
         this.editor = editor;
         filterService = new GridFilterService<>(this.repository, grid, specificationFactory);
         grid.addSelectionListener(event -> refreshActionPanel());
-        grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        grid.addItemDoubleClickListener(event -> {
-            Set<T> selectedItems = grid.getSelectedItems();
-            if (!selectedItems.isEmpty()) {
-                editor.editEntity(selectedItems.iterator().next(), this::actionAfterCloseEditor);
-            }
-        });
         grid.setHeightByRows(true);
         createActionPanel();
         createColumns();

@@ -48,12 +48,12 @@
     "line-awesome": "1.3.0",
     "lit-element": "2.5.1",
     "lit-html": "1.4.1",
-    "lumo-css-framework": "^4.0.10",
-    "open": "^7.2.1"
+    "lumo-css-framework": "^4.0.10"
   },
   "devDependencies": {
     "chokidar": "^3.5.0",
     "compression-webpack-plugin": "4.0.1",
+    "construct-style-sheets-polyfill": "2.4.6",
     "copy-webpack-plugin": "5.1.2",
     "css-loader": "4.2.1",
     "extra-watch-webpack-plugin": "1.0.3",
@@ -121,12 +121,12 @@
       "line-awesome": "1.3.0",
       "lit-element": "2.5.1",
       "lit-html": "1.4.1",
-      "lumo-css-framework": "^4.0.10",
-      "open": "^7.2.1"
+      "lumo-css-framework": "^4.0.10"
     },
     "devDependencies": {
       "chokidar": "^3.5.0",
       "compression-webpack-plugin": "4.0.1",
+      "construct-style-sheets-polyfill": "2.4.6",
       "copy-webpack-plugin": "5.1.2",
       "css-loader": "4.2.1",
       "extra-watch-webpack-plugin": "1.0.3",
@@ -142,6 +142,6 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "973b6673994bc7732aff0294df313d7afbc1511b1503b4bd4e82d29f82fb7d09"
+    "hash": "b3a7aec104eaba804cff6ee68cafa9a8caae2c9cd5d1b4021d918c35e1667a09"
   }
 }
